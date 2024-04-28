@@ -54,10 +54,10 @@ fi
 if [ "$CURRENT_VERSION" != "${VERSION#v}" ] || [ "$FORCE" == "true" ]; then
 	echo "Installing new version: $VERSION"
 	DOWNLOAD_URL="https://github.com/prometheus/mysqld_exporter/releases/download/$VERSION/mysqld_exporter-${VERSION#v}.linux-amd64.tar.gz"
-	curl -s -L $DOWNLOAD_URL -o mysqld_exporter_$VERSION.tar.gz
+	curl -s -L "$DOWNLOAD_URL" -o mysqld_exporter_"$VERSION".tar.gz
 
-	if [ -f mysqld_exporter_$VERSION.tar.gz ]; then
-		tar -xzf mysqld_exporter_$VERSION.tar.gz
+	if [ -f mysqld_exporter_"$VERSION".tar.gz ]; then
+		tar -xzf mysqld_exporter_"$VERSION".tar.gz
 	else
 		echo "Download failed: mysqld_exporter_$VERSION.tar.gz does not exist."
 		exit 1
@@ -68,9 +68,9 @@ if [ "$CURRENT_VERSION" != "${VERSION#v}" ] || [ "$FORCE" == "true" ]; then
 	else
 		echo "adding given version mysqld_exporter ($VERSION) to $DEST_BIN"
 	fi
-	mv mysqld_exporter-${VERSION#v}.linux-amd64/mysqld_exporter $DEST_BIN
-	rm mysqld_exporter_$VERSION.tar.gz
-	rm -r mysqld_exporter-${VERSION#v}.linux-amd64
+	mv mysqld_exporter-"${VERSION#v}".linux-amd64/mysqld_exporter "$DEST_BIN"
+	rm mysqld_exporter_"$VERSION".tar.gz
+	rm -r mysqld_exporter-"${VERSION#v}".linux-amd64
 
 	echo "mysqld_exporter has been updated to version $VERSION"
 else
